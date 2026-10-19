@@ -1,0 +1,138 @@
+/* ============================================================= responsive */
+@media (max-width: 1080px) {
+  .hero-top {
+    max-width: none;
+  }
+  .gate-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .cur-head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .les {
+    grid-template-columns: 44px minmax(0, 1fr) 74px;
+  }
+  .les p {
+    display: none;
+  }
+  .foot-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 820px) {
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(84vw, 360px);
+    padding: calc(var(--nav-h) + 28px) var(--pad) 34px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: rgba(3, 6, 9, 0.98);
+    border-left: 1px solid var(--line-soft);
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.65s var(--ease-out),
+      opacity 0.4s,
+      visibility 0s linear 0.65s;
+  }
+  .nav.menu-open .nav-links {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .nav-links .nav-link {
+    width: 100%;
+    height: auto;
+    padding: 17px 0;
+    overflow: visible;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .nav-links .nav-link span {
+    height: auto;
+    line-height: 1.2;
+    transform: none !important;
+  }
+  .nav-links .nav-link .alt {
+    position: static;
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  /* The links panel leaves the flow to become the slide-in sheet, taking its
+     margin-left:auto with it, so without this the burger sits tucked against
+     the wordmark instead of out at the edge where a thumb reaches. */
+  /* A transform *or* a backdrop-filter makes an element the containing block
+     for its position:fixed descendants. This panel is a child of the bar, so
+     once the bar went sticky and started hiding on scroll the open panel was
+     measured against the bar instead of the viewport: 146px tall, dragged off
+     the top, with the page showing through beside it. Neither may apply while
+     the sheet is open — it covers the frame, so there is nothing left to blur. */
+  /* A hide transform still promotes the bar, so drop it the instant the sheet
+     opens. Without transition:none it eases out over .55s and the sheet spends
+     that whole time measured against the bar. */
+  .nav.menu-open {
+    transform: none;
+    transition: none;
+  }
+  .nav-burger {
+    margin-left: auto;
+  }
+  .nav-burger.active i:nth-child(1) {
+    top: 7px;
+    width: 26px;
+    transform: rotate(45deg);
+  }
+  .nav-burger.active i:nth-child(2) {
+    top: 7px;
+    width: 26px;
+    transform: rotate(-45deg);
+  }
+  html.nav-open,
+  html.nav-open body {
+    overflow: hidden;
+  }
+  .rail {
+    display: none;
+  }
+  .hero-side {
+    display: none;
+  }
+  .chapters {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 14px;
+  }
+  .chip p {
+    font-size: 10px;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .card:nth-child(2),
+  .card:nth-child(3) {
+    transform: none;
+  }
+  .gate-stats {
+    flex-wrap: wrap;
+    gap: 20px 34px;
+  }
+  .foot-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-cue {
+    display: none;
+  }
+}

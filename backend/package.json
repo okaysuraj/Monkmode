@@ -1,0 +1,25 @@
+{
+  "name": "monkmode-backend",
+  "version": "1.0.0",
+  "description": "Express.js and PostgreSQL backend API for Monkmode",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:init": "node src/db/migrate.js init",
+    "db:seed": "node src/db/migrate.js seed",
+    "db:reset": "node src/db/migrate.js reset"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

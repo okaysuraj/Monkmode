@@ -1,0 +1,544 @@
+/* The fixed page composition, including its responsive adjustments. */
+
+/* — hero · split: an editorial reading column holds the left, a compact
+     numbered index sits under it, and the live scene window becomes a low,
+     right-hand counterweight. The scene itself remains untouched.
+
+     The column carried a 90° scrim over the left three-quarters of the frame.
+     It has gone: the sanctuary is already near-black behind the reading, and
+     measured against it the copy loses almost nothing without it — the
+     headline 15.98:1 to 15.47:1, the standfirst 7.94:1 to 7.75:1, the index
+     16.11:1 to 16.08:1, all far past what either needs. It was darkening the
+     approach, the gate and the lower steps to buy half a point of contrast
+     nobody was short of. */
+.hero-top {
+  margin-left: 0;
+  max-width: min(590px, 46vw);
+}
+.hero-foot {
+  width: min(520px, 44vw);
+  margin-left: 0;
+}
+.hero-cue {
+  justify-content: flex-start;
+}
+.chapters {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+  border-top: 1px solid rgba(223, 231, 224, 0.1);
+  padding-top: 16px;
+}
+.chip {
+  position: relative;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  background: rgba(8, 12, 16, 0.82);
+  border: 1px solid rgba(223, 231, 224, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.4s var(--ease-out),
+    background 0.4s,
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+.chip:hover {
+  transform: translateY(-3px);
+  background: rgba(12, 18, 24, 0.78);
+  border-color: rgba(226, 38, 30, 0.4);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 16px rgba(226, 38, 30, 0.15);
+}
+.chip .num {
+  font-size: clamp(20px, 2vw, 28px);
+  color: var(--bone);
+  line-height: 1;
+}
+.chip .tx {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+}
+.chip b {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  display: block;
+  margin: 0;
+}
+.chip p {
+  display: none;
+}
+
+/* the live window drops into the open right corner, away from the reading
+   column and the oversized 3-D wordmark */
+.peek {
+  left: auto;
+  right: var(--pad);
+  top: auto;
+  bottom: clamp(38px, 7vh, 96px);
+}
+.peek-cap b.jp {
+  font-size: clamp(20px, 2.2vw, 34px);
+  letter-spacing: 0.18em;
+}
+/* The Japanese title reads down the right edge, hung under the navigation —
+   the one mark on that side of the frame now that the romanization has gone. */
+.hero-side {
+  left: auto;
+  right: var(--pad);
+  top: calc(var(--nav-h) + clamp(14px, 3vh, 42px));
+  bottom: auto;
+  transform: none;
+  display: block;
+}
+.hero-side .v {
+  position: static;
+  transform: none;
+  font-size: clamp(30px, 3.2vw, 54px);
+  letter-spacing: 0.12em;
+  color: rgba(223, 231, 224, 0.62);
+}
+
+/* — story · spread: the title crosses two columns, the reading column is
+     held to the right, and the figures become a ruled band. */
+.gate-grid {
+  grid-template-columns: minmax(120px, 0.38fr) minmax(0, 1.08fr) minmax(280px, 0.88fr);
+  gap: clamp(20px, 3vw, 54px);
+  position: relative;
+  z-index: 20;
+}
+.gate-grid h2 {
+  grid-column: 1 / 3;
+  max-width: 13ch;
+}
+.gate-copy {
+  grid-column: 3;
+}
+.gate-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: clamp(44px, 7vh, 88px);
+  margin-bottom: clamp(34px, 6vh, 76px);
+  border-top: none;
+  padding-top: 0;
+  position: relative;
+  z-index: 25;
+}
+.gate-stats div {
+  min-height: 104px;
+  padding: 22px;
+  background: rgba(8, 12, 16, 0.88);
+  border: 1px solid rgba(223, 231, 224, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.4s var(--ease-out),
+    border-color 0.4s,
+    background 0.4s,
+    box-shadow 0.4s;
+}
+.gate-stats div:hover {
+  transform: translateY(-3px);
+  background: rgba(12, 17, 22, 0.85);
+  border-color: rgba(226, 38, 30, 0.4);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(226, 38, 30, 0.15);
+}
+.gate-stats div b {
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--bone-bright);
+  margin-bottom: 6px;
+}
+.gate-stats div span {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* — gardens · mosaic: one immersive live window beside two stacked ones.
+     The cards stretch to their rows and the frames flex, so the two small
+     viewports meet the tall one exactly instead of drifting apart. */
+.cards {
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+  position: relative;
+  z-index: 20;
+}
+.card {
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.card-fr {
+  aspect-ratio: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  outline: 1px solid rgba(223, 231, 224, 0.12);
+  outline-offset: -1px;
+  box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.75);
+  transition:
+    outline-color 0.5s var(--ease),
+    transform 0.5s var(--ease-out),
+    box-shadow 0.5s;
+}
+.card:hover .card-fr {
+  outline-color: rgba(226, 38, 30, 0.45);
+  transform: translateY(-4px);
+  box-shadow:
+    0 26px 65px -10px rgba(0, 0, 0, 0.9),
+    0 0 32px rgba(226, 38, 30, 0.18);
+}
+.card:first-child {
+  grid-row: 1 / 3;
+}
+.card:first-child .card-fr {
+  flex: 0 0 auto;
+  height: min(72vh, 760px);
+}
+.card:not(:first-child) .card-fr {
+  min-height: 220px;
+}
+
+/* — chapters · atlas: a two-then-three plate grid instead of a syllabus.
+     Number and title sit at the top of each plate, the running time drops to
+     the foot of it. */
+.cur-head {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.2fr);
+  align-items: start;
+  position: relative;
+  z-index: 22;
+}
+.cur {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  background: none;
+  border: none;
+  position: relative;
+  z-index: 22;
+  margin-bottom: clamp(40px, 7vh, 80px);
+}
+.les {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 260px;
+  padding: 28px 24px;
+  gap: 14px;
+  background: rgba(8, 12, 16, 0.88);
+  border: 1px solid rgba(223, 231, 224, 0.09);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  transition:
+    transform 0.45s var(--ease-out),
+    border-color 0.45s,
+    background 0.45s,
+    box-shadow 0.45s;
+}
+.les:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+.les:nth-child(n + 3) {
+  grid-column: span 2;
+}
+.les::before {
+  left: 0;
+  background: linear-gradient(145deg, rgba(226, 38, 30, 0.15), transparent 60%);
+}
+.les:hover {
+  padding-left: 24px;
+  transform: translateY(-5px);
+  background: rgba(12, 17, 24, 0.85);
+  border-color: rgba(226, 38, 30, 0.4);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.65),
+    0 0 25px rgba(226, 38, 30, 0.15);
+}
+.les h3 {
+  font-size: clamp(19px, 1.9vw, 28px);
+}
+.les p {
+  display: block;
+  max-width: 34ch;
+  color: #9cb0a4;
+}
+.les .t {
+  text-align: left;
+  margin-top: auto;
+  color: #a2b2a8;
+}
+
+/* — closing · gallery: the title hangs vertically on the right while the
+     chapter mark, the last line and the call to action run down the left. */
+.fin {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  align-items: end;
+  text-align: left;
+  column-gap: clamp(40px, 7vw, 120px);
+  row-gap: clamp(16px, 2.6vh, 30px);
+  position: relative;
+  z-index: 22;
+  padding-bottom: clamp(120px, 18vh, 220px);
+}
+.fin .eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+}
+.fin h2 {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  justify-self: end;
+  font-size: clamp(52px, 6vw, 82px);
+  writing-mode: vertical-rl;
+  text-shadow: 0 4px 34px rgba(0, 0, 0, 0.9);
+}
+.fin p {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  background: rgba(6, 10, 14, 0.85);
+  padding: 18px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(223, 231, 224, 0.08);
+  color: #b8c4bc;
+}
+.fin .cta {
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: start;
+  margin-top: 14px;
+}
+
+/* — footer · manifesto: the statement leads, the navigation becomes a
+     compact ruled index beneath it. */
+.foot-grid {
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+  z-index: 22;
+}
+.foot-brand {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: center;
+  padding-bottom: 34px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.foot-brand svg {
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 0 10px rgba(226, 38, 30, 0.4));
+}
+.foot-brand p {
+  margin: 0;
+  max-width: 48ch;
+  font-size: clamp(18px, 2vw, 30px);
+  line-height: 1.35;
+  color: var(--bone-dim);
+}
+.foot-grid > div:nth-child(n + 3) {
+  padding-left: clamp(18px, 2.2vw, 34px);
+  border-left: 1px solid var(--line-soft);
+}
+.foot-base {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  position: relative;
+  z-index: 22;
+}
+.foot-base span:last-child {
+  text-align: right;
+}
+
+@media (max-width: 820px) {
+  /* the split collapses and the copy takes the page back */
+  .hero-top {
+    margin-left: 0;
+    max-width: none;
+  }
+  .hero-foot {
+    width: 100%;
+  }
+  /* The four-column strip is set on a selector specific enough to survive the
+     plain .chapters override below 820, so it has to be unset here by name or
+     the chips stay four across on a phone and wrap a word to a line. */
+  .chapters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 14px;
+  }
+  .chip {
+    flex-direction: row;
+    gap: 14px;
+  }
+  /* Same shape of bug: the layout selector outranks the plain single-column
+     rule, so the heading kept a 37% column while its words are set at 30px —
+     "CHAPTERS." alone is wider than that, and it spilled over the paragraph. */
+  .cur-head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .chip .num {
+    font-size: clamp(26px, 8vw, 36px);
+  }
+  .chip .tx {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .gate-stats {
+    grid-template-columns: repeat(2, 1fr);
+    border-right: 1px solid var(--line-soft);
+  }
+  .gate-stats div {
+    min-height: 86px;
+    padding: 14px;
+  }
+  .gate-stats div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .gate-stats div:last-child {
+    border-right: 0;
+  }
+
+  /* the mosaic unstacks, but the rhythm survives: the lead window stays the
+     tall one and the two field notes stay letterbox */
+  .cards {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .card:first-child {
+    grid-row: auto;
+  }
+  .card-fr {
+    flex: 0 0 auto;
+    height: auto;
+  }
+  .card:first-child .card-fr {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .card:not(:first-child) .card-fr {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .cur {
+    grid-template-columns: 1fr;
+  }
+  .les:nth-child(n) {
+    grid-column: auto;
+    min-height: 0;
+    padding: 20px;
+  }
+  .les:hover {
+    padding-left: 20px;
+  }
+
+  .fin {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+  .fin .eyebrow {
+    margin: 0 0 26px;
+  }
+  .fin h2 {
+    writing-mode: horizontal-tb;
+    font-size: clamp(38px, 7.4vw, 124px);
+  }
+  .fin p {
+    margin: 26px auto 0;
+  }
+  .fin .cta {
+    margin-top: 40px;
+  }
+
+  .foot-grid {
+    grid-template-columns: 1fr;
+  }
+  .foot-brand {
+    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+  .foot-grid > div:nth-child(n + 3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .foot-base {
+    display: flex;
+  }
+  .foot-base span:last-child {
+    text-align: left;
+  }
+}
+
+/* On a phone two columns leave the chip's copy about 110px once the numeral
+   and its gutter are taken out, which is narrow enough to wrap a single word
+   to a line. Standing the numeral above the label gives the copy the whole
+   column back. */
+@media (max-width: 560px) {
+  .chip {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .chip .num {
+    font-size: clamp(22px, 7.4vw, 30px);
+  }
+  .chip .tx {
+    padding-top: 0;
+  }
+  .chip p {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-rv] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .mask-line > span,
+  .word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
